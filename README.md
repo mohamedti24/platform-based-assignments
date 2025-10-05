@@ -34,3 +34,24 @@ Description:
 How to run:
 ```bash
 node age-calculator/age.js
+
+---
+
+### 🔵 Week 3 — Understanding Loop, Branching, and Array  
+**File:** `week3/week3.js`  
+Topics Covered:
+- Loops (`for`)
+- Branching (`if...else`)
+- Arrays (`push`, `length`, and indexing`)
+- Finding largest number
+- Prime number checker
+
+**Description:**
+This task demonstrates the use of:
+- Loops to repeat actions  
+- Branching to make decisions  
+- Arrays to store and manipulate data
+
+How to run:
+```bash
+node week3/week3.js
