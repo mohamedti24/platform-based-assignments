@@ -3,9 +3,12 @@ var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
+var session = require('express-session');
 
+// ROUTERS
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var authRouter = require('./routes/auth');
+var articleRouter = require('./routes/articles');
 
 var app = express();
 
@@ -19,17 +22,27 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ROUTES
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// ✅ SESSION — MUST be BEFORE routes
+app.use(
+  session({
+    secret: 'secret-key',
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
+// ✅ ROUTES (AFTER session)
+app.use('/', indexRouter);            // home
+app.use('/', authRouter);             // /login, /logout
+app.use('/articles', articleRouter);  // articles CRUD
+
+// catch 404
+app.use(function (req, res, next) {
   next(createError(404));
 });
 
 // error handler
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
 
