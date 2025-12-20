@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Movie Search</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #0d253f;
+  color: white;
+}
+
+/* HERO */
+.hero {
+  background: linear-gradient(rgba(13,37,63,.9), rgba(13,37,63,.9)),
+              url('https://www.themoviedb.org/assets/2/v4/account_pipes/sphere-b6c8b05f5c7f7b6d9b6a2fdc8fd0ed92.svg');
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.hero h1 {
+  font-size: 40px;
+}
+
+.search-box {
+  margin-top: 20px;
+}
+
+.search-box input {
+  width: 60%;
+  padding: 14px;
+  border-radius: 30px;
+  border: none;
+  font-size: 16px;
+}
+
+.search-box button {
+  padding: 14px 25px;
+  border-radius: 30px;
+  border: none;
+  background: #01b4e4;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+/* MOVIES */
+.section {
+  padding: 20px;
+}
+
+.movies {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 20px;
+}
+
+.movie {
+  background: #032541;
+  border-radius: 10px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.movie img {
+  width: 100%;
+}
+
+.movie p {
+  padding: 10px;
+  font-size: 14px;
+}
+</style>
+</head>
+
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <h1>Welcome.</h1>
+  <p>Millions of movies, TV shows and people to discover.</p>
+
+  <div class="search-box">
+    <input id="query" placeholder="Search for a movie..." />
+    <button onclick="searchMovie()">Search</button>
+  </div>
+</div>
+
+<!-- TRENDING -->
+<div class="section">
+  <h2>Trending</h2>
+  <div class="movies" id="trending"></div>
+</div>
+
+<!-- SEARCH RESULTS -->
+<div class="section">
+  <h2>Results</h2>
+  <div class="movies" id="results"></div>
+</div>
+
+<script>
+const IMG = 'https://image.tmdb.org/t/p/w500';
+
+async function loadTrending() {
+  const res = await fetch('/api/trending');
+  const data = await res.json();
+
+  document.getElementById('trending').innerHTML =
+    data.results.map(m => `
+      <div class="movie">
+        <img src="${IMG + m.poster_path}">
+        <p>${m.title}</p>
+      </div>
+    `).join('');
+}
+
+async function searchMovie() {
+  const q = document.getElementById('query').value;
+  const res = await fetch(`/api/movies?query=${q}`);
+  const data = await res.json();
+
+  document.getElementById('results').innerHTML =
+    data.results.map(m => `
+      <div class="movie">
+        <img src="${IMG + m.poster_path}">
+        <p>${m.title}</p>
+      </div>
+    `).join('');
+}
+
+loadTrending();
+</script>
+
+</body>
+</html>
