@@ -1,0 +1,14 @@
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+dotenv.config();
+import auth from './routes/auth.routes.js';
+import jobs from './routes/job.routes.js';
+import admin from './routes/admin.routes.js';
+const app=express();
+app.use(cors());
+app.use(express.json());
+app.use('/api/auth',auth);
+app.use('/api/jobs',jobs);
+app.use('/api/admin',admin);
+export default app;
