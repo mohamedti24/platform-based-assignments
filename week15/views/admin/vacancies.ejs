@@ -1,0 +1,9 @@
+<h2>Vacancies</h2>
+
+<a href="/admin/vacancies/new">Add Vacancy</a>
+
+<ul>
+  <% vacancies.forEach(v => { %>
+    <li><%= v.title %> - <%= v.company %></li>
+  <% }) %>
+</ul>

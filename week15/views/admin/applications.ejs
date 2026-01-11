@@ -1,0 +1,10 @@
+<h2>Applications</h2>
+
+<ul>
+  <% applications.forEach(a => { %>
+    <li>
+      User: <%= a.user.name %> |
+      Job: <%= a.vacancy.title %>
+    </li>
+  <% }) %>
+</ul>

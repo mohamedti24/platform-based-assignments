@@ -1,0 +1,11 @@
+<h2>User Form</h2>
+
+<form method="POST" action="<%= action %>">
+  <input name="name" placeholder="Name" value="<%= user?.name || '' %>" />
+  <input name="email" placeholder="Email" value="<%= user?.email || '' %>" />
+  <select name="role">
+    <option value="MEMBER">Member</option>
+    <option value="ADMIN">Admin</option>
+  </select>
+  <button type="submit">Save</button>
+</form>

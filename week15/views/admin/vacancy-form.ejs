@@ -1,0 +1,9 @@
+<h2>Vacancy Form</h2>
+
+<form method="POST" action="<%= action %>">
+  <input name="title" placeholder="Title" value="<%= vacancy?.title || '' %>" />
+  <input name="company" placeholder="Company" value="<%= vacancy?.company || '' %>" />
+  <input name="location" placeholder="Location" value="<%= vacancy?.location || '' %>" />
+  <textarea name="description"><%= vacancy?.description || '' %></textarea>
+  <button type="submit">Save</button>
+</form>
